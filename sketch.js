@@ -28,18 +28,48 @@ function addNumber() {
     let spot = random(options);
     let r = random(1);
     grid[spot.x][spot.y] = r > 0.5 ? 2 : 4;
-}  
+} 
+
+function compare (a, b) {
+    for (let i = 0; i<4; i++) {
+        for (let j = 0; j<4; j++) {
+            if (a[i][j] !== b[i][j]) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+function copyGrid(grid) {
+    let extra = [
+        [0,0,0,0],
+        [0,0,0,0],
+        [0,0,0,0],
+        [0,0,0,0]
+    ];
+
+    for (let i=0; i<4; i++) {
+        for (let j = 0; j<4; j++) {
+            extra[i][j] = grid[i][j];
+        }
+    }
+    return extra
+}
 
 function keyPressed() {
     if (key == ' ') {
+        let past = copyGrid(grid)
         for (let i=0; i<4; i++){
-            grid[i] = slide(grid[i]);
-            grid[i] = combine(grid[i]);
-            grid[i] = slide(grid[i]);
-            // row = operate(grid[i]);
+            
+            grid[i] = operate(grid[i])
+        }
+
+        let changed = compare(past, grid)
+        if(changed) {
+            addNumber()
         }
     }
-    addNumber();
 }
 
 function operate(row) {

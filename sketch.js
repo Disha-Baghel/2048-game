@@ -111,8 +111,6 @@ function keyPressed() {
 
     if (rotated) {
       grid = rotateGrid(grid);
-      grid = rotateGrid(grid);
-      grid = rotateGrid(grid);
     }
   }
 }
